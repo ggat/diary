@@ -1,0 +1,125 @@
+.title {
+    font-size: 48px;
+    color: #888;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin: 0 40px;
+}
+
+.title > * {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.title.current {
+    color: black;
+}
+
+.current-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.data {
+    display: flex;
+    height: 400px;
+}
+
+.month {
+    flex-grow: 2;
+}
+
+.chart {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    margin: 20px 40px;
+}
+
+.list {
+    flex-grow: 2;
+}
+
+.content {
+    background: none;
+    width: 100%;
+    height: 300px;
+    font-size: 18px;
+    font-weight: 600;
+    border: 0;
+    margin: 20px 40px;
+    outline: 0;
+    /* background: #D7D7D7; */
+    resize: none;
+    border-radius: 6px;
+    /* box-shadow: 7px 6px 6px 1px rgba(0,0,0,0.12); */
+    box-sizing: border-box;
+}
+
+.content:disabled {
+    /* background: whitesmoke; */
+    color: #ccc;
+}
+
+.card {
+    border-radius: 6px;
+    background: #e8e8e8;
+    box-sizing: border-box;
+    margin-bottom: 60px;
+}
+
+.header {
+    margin: 40px 0px;
+    display: flex;
+    align-items: center;
+    color: #0e9076;
+}
+
+.header .skull {
+    fill: #004d3e;
+    width: 60px;
+    height: 60px;
+}
+
+.header .author {
+    font-family: "Major Mono Display", monospace;
+    font-size: 30px;
+    fill: #0e9076;
+    margin-right: 12px;
+}
+
+.header .progress {
+    flex-grow: 1;
+    background-color: #0e9076;
+    height: 60px;
+    position: relative;
+    font-family: "Major Mono Display", monospace;
+    color: white;
+}
+
+.header .progress-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #004d3e;
+    height: 100%;
+    width: 50%;
+    font-size: 30px;
+    padding: 0 20px;
+}
+
+.header .progress .progress-numbers {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
