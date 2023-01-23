@@ -140,10 +140,11 @@ function Front({ db, currentDay }) {
                                 entry.day === currentDay ? "current" : ""
                             }`}
                         >
-                            <h2>Day {entry.day}</h2>
-                            <h4>{entry.dateString}</h4>
+                            <h2>{entry.dateString}</h2>
+                            <h3 title={`Day ${entry.day}`}>{entry.day}</h3>
                         </div>
                         <textarea
+                            rows={6}
                             className="content"
                             disabled={entry.day !== currentDay}
                             onChange={hangleChange(entry.day)}

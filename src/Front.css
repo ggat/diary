@@ -1,10 +1,16 @@
 .title {
-    font-size: 48px;
     color: #888;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    margin: 0 40px;
+}
+
+.title h2 {
+    font-size: 24px;
+}
+
+.title h3 {
+    font-size: 15px;
 }
 
 .title > * {
@@ -13,7 +19,7 @@
 }
 
 .title.current {
-    color: black;
+    color: #0e9076;
 }
 
 .current-day {
@@ -48,11 +54,10 @@
 .content {
     background: none;
     width: 100%;
-    height: 300px;
     font-size: 18px;
     font-weight: 600;
     border: 0;
-    margin: 20px 40px;
+    /* margin: 20px 40px; */
     outline: 0;
     /* background: #D7D7D7; */
     resize: none;
@@ -63,7 +68,7 @@
 
 .content:disabled {
     /* background: whitesmoke; */
-    color: #ccc;
+    color: #888;
 }
 
 .card {
@@ -71,6 +76,7 @@
     background: #e8e8e8;
     box-sizing: border-box;
     margin-bottom: 60px;
+    padding: 20px 40px;
 }
 
 .header {
