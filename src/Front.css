@@ -86,10 +86,21 @@
     color: #0e9076;
 }
 
-.header .skull {
+.header .skull-button {
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.header .skull-button .skull {
     fill: #004d3e;
     width: 60px;
     height: 60px;
+}
+
+.header .skull-button .skull:hover {
+    fill: #dc4633;
 }
 
 .header .author {
