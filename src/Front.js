@@ -11,6 +11,7 @@ import Skull from "./icons/Skull";
 import Card from "./Card";
 import DBContext from "./contexts/DBContext";
 import CurrentDayContext from "./contexts/CurrentDayContext";
+import Calendar from "./Calendar";
 
 function Front() {
     const { user, auth, isLoading: isAuthLoading } = useContext(AuthContext);
@@ -86,6 +87,7 @@ function Front() {
 
     return (
         <>
+        <Calendar />
             {!isAuthLoading && (
                 <>
                     {(!user || ui.isPendingRedirect()) && (
