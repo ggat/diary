@@ -51,34 +51,6 @@
     flex-grow: 2;
 }
 
-.content {
-    background: none;
-    width: 100%;
-    font-size: 18px;
-    font-weight: 600;
-    border: 0;
-    /* margin: 20px 40px; */
-    outline: 0;
-    /* background: #D7D7D7; */
-    resize: none;
-    border-radius: 6px;
-    /* box-shadow: 7px 6px 6px 1px rgba(0,0,0,0.12); */
-    box-sizing: border-box;
-}
-
-.content:disabled {
-    /* background: whitesmoke; */
-    color: #888;
-}
-
-.card {
-    border-radius: 6px;
-    background: #e8e8e8;
-    box-sizing: border-box;
-    margin-bottom: 60px;
-    padding: 20px 40px;
-}
-
 .header {
     margin: 40px 0px;
     display: flex;

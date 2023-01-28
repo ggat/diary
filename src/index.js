@@ -6,17 +6,18 @@ import reportWebVitals from "./reportWebVitals";
 import CurrentDay from "./CurrentDay";
 import { database } from "./bootstrap";
 import Auth from "./Auth";
+import DBContext from "./contexts/DBContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <React.StrictMode>
-        <Auth>
-            <CurrentDay>
-                {(currentDay) => (
-                    <Front db={database} currentDay={currentDay} />
-                )}
-            </CurrentDay>
-        </Auth>
+        <DBContext.Provider value={database}>
+            <Auth>
+                <CurrentDay>
+                    <Front />
+                </CurrentDay>
+            </Auth>
+        </DBContext.Provider>
     </React.StrictMode>
 );
 

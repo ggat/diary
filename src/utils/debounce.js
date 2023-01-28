@@ -2,7 +2,7 @@ export function debounce(callback, timeout) {
     let timer;
     return function (...params) {
         if (timer !== undefined) {
-            clearInterval(timer);
+            clearTimeout(timer);
         }
 
         timer = setTimeout(() => {

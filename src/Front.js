@@ -1,26 +1,21 @@
 import "./Front.css";
-import {
-    collection,
-    doc,
-    getDocs,
-    limit,
-    orderBy,
-    query,
-    setDoc,
-} from "firebase/firestore";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
+import { useContext, useEffect, useMemo, useState } from "react";
 import PerformanceRadarChart from "./PerformanceRadarChart";
 import { dayToDateTimeObj, toDateString } from "./utils/day-to-date-time-obj";
-import { debounce } from "./utils/debounce.js";
 import { tsToDays } from "./utils/current-day";
 import AuthContext from "./contexts/AuthContext";
 import firebase from "firebase/compat/app";
 import { ui } from "./bootstrap";
 import Skull from "./icons/Skull";
+import Card from "./Card";
+import DBContext from "./contexts/DBContext";
+import CurrentDayContext from "./contexts/CurrentDayContext";
 
-function Front({ db, currentDay }) {
+function Front() {
     const { user, auth, isLoading: isAuthLoading } = useContext(AuthContext);
-    const [isSaving, setIsSaving] = useState(false);
+    const db = useContext(DBContext);
+    const currentDay = useContext(CurrentDayContext);
 
     const [entries, setEntries] = useState(null);
     // Header stuff
@@ -78,26 +73,6 @@ function Front({ db, currentDay }) {
         }
     }, [db, isAuthLoading, user]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const setDocInDB = useCallback(
-        debounce(async (day, value) => {
-            await setDoc(doc(db, "days", String(day)), {
-                day,
-                content: value,
-            });
-            setIsSaving(false);
-        }, 3000),
-        [db]
-    );
-
-    const hangleChange = useCallback(
-        (day) => (e) => {
-            setIsSaving(true);
-            setDocInDB(day, e.target.value);
-        },
-        [setDocInDB]
-    );
-
     useEffect(() => {
         if (!isAuthLoading && (!user || ui.isPendingRedirect())) {
             ui.start("#firebaseui-auth-container", {
@@ -146,30 +121,11 @@ function Front({ db, currentDay }) {
                             </div>
                             <div className="list">
                                 {list.map((entry) => (
-                                    <div className="card" key={entry.day}>
-                                        {isSaving && <div>Unsaved...</div>}
-                                        <div
-                                            className={`title ${
-                                                entry.day === currentDay
-                                                    ? "current"
-                                                    : ""
-                                            }`}
-                                        >
-                                            <h2>{entry.dateString}</h2>
-                                            <h3 title={`Day ${entry.day}`}>
-                                                {entry.day}
-                                            </h3>
-                                        </div>
-                                        <textarea
-                                            rows={6}
-                                            className="content"
-                                            disabled={
-                                                entry.day < currentDay - 1
-                                            }
-                                            onChange={hangleChange(entry.day)}
-                                            defaultValue={entry.content}
-                                        />
-                                    </div>
+                                    <Card
+                                        key={entry.day}
+                                        entry={entry}
+                                        db={db}
+                                    />
                                 ))}
                             </div>
                             <div className="data">

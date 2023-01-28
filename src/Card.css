@@ -1,0 +1,29 @@
+.card {
+    border-radius: 6px;
+    background: #e8e8e8;
+    box-sizing: border-box;
+    margin-bottom: 60px;
+    padding: 20px 40px;
+}
+
+.content {
+    background: none;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+    border: 0;
+    outline: 0;
+    resize: none;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.content:disabled {
+    /* background: whitesmoke; */
+    color: #888;
+}
+
+.status {
+    font-size: 12px;
+    height: 12px;
+}
