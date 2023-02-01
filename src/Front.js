@@ -87,7 +87,6 @@ function Front() {
 
     return (
         <>
-        <Calendar />
             {!isAuthLoading && (
                 <>
                     {(!user || ui.isPendingRedirect()) && (
@@ -121,6 +120,7 @@ function Front() {
                                     ></div>
                                 </div>
                             </div>
+                            <Calendar />
                             <div className="list">
                                 {list.map((entry) => (
                                     <Card

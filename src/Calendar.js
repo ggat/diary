@@ -37,11 +37,20 @@ export default function Calendar() {
             ))}
             {Array(pad)
                 .fill(0)
-                .map(() => (
-                    <div></div>
+                .map((i) => (
+                    <div key={i}></div>
                 ))}
             {daysOfMonth.map((day) => (
-                <div className={date.getDate() === day.getDate() ? "calendar-current-day" : ""} key={day.getDate()}>{day.getDate()}</div>
+                <div
+                    className={
+                        date.getDate() === day.getDate()
+                            ? "calendar-current-day"
+                            : ""
+                    }
+                    key={day.getDate()}
+                >
+                    {day.getDate()}
+                </div>
             ))}
         </div>
     );
