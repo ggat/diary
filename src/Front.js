@@ -38,19 +38,11 @@ function Front() {
             content,
         });
 
-        if (!entries || !entries[0]) {
-            return [mapForUI({ day: currentDay })];
-        }
-
         const res = [];
-        entries.forEach((entry) => {
-            res.push(mapForUI(entry));
-        });
-
-        if (entries[0].day < currentDay) {
-            for (let i = entries[0].day + 1; i <= currentDay; i++) {
-                res.unshift(mapForUI({ day: i }));
-            }
+        for (let i = currentDay; i >= currentDay - 10; i--) {
+            const dayEntry = entries && entries.find((entry) => entry.day === i);
+            const day = mapForUI(dayEntry ? dayEntry : { day: i });
+            res.push(day);
         }
 
         return res;
