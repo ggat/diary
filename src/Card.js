@@ -74,7 +74,7 @@ export default function Card({ entry }) {
             <textarea
                 rows={6}
                 className="content"
-                disabled={entry.day < currentDay - 1}
+                disabled={entry.day < currentDay - 3}
                 onChange={hangleChange}
                 defaultValue={entry.content}
             />
