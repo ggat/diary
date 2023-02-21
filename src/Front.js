@@ -40,7 +40,8 @@ function Front() {
 
         const res = [];
         for (let i = currentDay; i >= currentDay - 10; i--) {
-            const dayEntry = entries && entries.find((entry) => entry.day === i);
+            const dayEntry =
+                entries && entries.find((entry) => entry.day === i);
             const day = mapForUI(dayEntry ? dayEntry : { day: i });
             res.push(day);
         }
@@ -76,59 +77,58 @@ function Front() {
         }
     }, [user, isAuthLoading]);
 
+    if (isAuthLoading) {
+        return "Checking Auth...";
+    }
+
+    if (!user || ui.isPendingRedirect()) {
+        return <div id="firebaseui-auth-container"></div>;
+    }
+
+    if (user && user.email !== "g.gatenashvili@gmail.com") {
+        return (
+            <div>
+                <div>Authenticated user has no rights to see the content.</div>
+                <button className="skull-button" onClick={() => auth.signOut()}>
+                    Sign out
+                </button>
+            </div>
+        );
+    }
+
     return (
-        <>
-            {!isAuthLoading && (
-                <>
-                    {(!user || ui.isPendingRedirect()) && (
-                        <div id="firebaseui-auth-container"></div>
-                    )}
-                    {user && (
-                        <div className="container">
-                            <div className="header">
-                                <button
-                                    className="skull-button"
-                                    onClick={() => auth.signOut()}
-                                >
-                                    <Skull />
-                                </button>
-                                <div className="author">
-                                    <div>{user?.email}</div>
-                                    <div>{daysPassed}</div>
-                                </div>
-                                <div className="progress">
-                                    <div className="progress-numbers">
-                                        <div>{daysPassed}</div>
-                                        <div>{daysLeft}</div>
-                                    </div>
-                                    <div
-                                        className="progress-inner"
-                                        style={{
-                                            width: `${
-                                                (daysPassed / totalDays) * 100
-                                            }%`,
-                                        }}
-                                    ></div>
-                                </div>
-                            </div>
-                            <div className="list">
-                                {list.map((entry) => (
-                                    <Card
-                                        key={entry.day}
-                                        entry={entry}
-                                        db={db}
-                                    />
-                                ))}
-                            </div>
-                            <div className="data">
-                                <div className="month"></div>
-                                <PerformanceRadarChart />
-                            </div>
-                        </div>
-                    )}
-                </>
-            )}
-        </>
+        <div className="container">
+            <div className="header">
+                <button className="skull-button" onClick={() => auth.signOut()}>
+                    <Skull />
+                </button>
+                <div className="author">
+                    <div>{user?.email}</div>
+                    <div>{daysPassed}</div>
+                </div>
+                <div className="progress">
+                    <div className="progress-numbers">
+                        <div>{daysPassed}</div>
+                        <div>{daysLeft}</div>
+                    </div>
+                    <div
+                        className="progress-inner"
+                        style={{
+                            width: `${(daysPassed / totalDays) * 100}%`,
+                        }}
+                    ></div>
+                </div>
+            </div>
+            <div className="list">
+                {list.map((entry) => (
+                    <Card key={entry.day} entry={entry} db={db} />
+                ))}
+            </div>
+            <div className="data">
+                <div className="month"></div>
+                <PerformanceRadarChart />
+            </div>
+        </div>
     );
 }
 
