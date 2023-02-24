@@ -67,12 +67,14 @@ function Front() {
     }, [db, isAuthLoading, user]);
 
     useEffect(() => {
-        if (!isAuthLoading && (!user || ui.isPendingRedirect())) {
+        if (!isAuthLoading && !user) {
             ui.start("#firebaseui-auth-container", {
                 signInOptions: [
-                    // List of OAuth providers supported.
                     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
                 ],
+                callbacks: {
+                    signInSuccessWithAuthResult: () => false,
+                },
             });
         }
     }, [user, isAuthLoading]);
@@ -81,7 +83,7 @@ function Front() {
         return "Checking Auth...";
     }
 
-    if (!user || ui.isPendingRedirect()) {
+    if (!user) {
         return <div id="firebaseui-auth-container"></div>;
     }
 
