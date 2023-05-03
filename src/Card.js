@@ -4,6 +4,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { debounce } from "./utils/debounce";
 import DBContext from "./contexts/DBContext";
 import CurrentDayContext from "./contexts/CurrentDayContext";
+import ReactTextareaAutosize from "react-textarea-autosize";
 
 export default function Card({ entry }) {
     const [isDirty, setIsDirty] = useState(false);
@@ -71,8 +72,7 @@ export default function Card({ entry }) {
                 <h2>{entry.dateString}</h2>
                 <h3 title={`Day ${entry.day}`}>{entry.day}</h3>
             </div>
-            <textarea
-                rows={6}
+            <ReactTextareaAutosize
                 className="content"
                 disabled={entry.day < currentDay - 3}
                 onChange={hangleChange}
