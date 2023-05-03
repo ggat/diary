@@ -11,6 +11,7 @@ import Skull from "./icons/Skull";
 import Card from "./Card";
 import DBContext from "./contexts/DBContext";
 import CurrentDayContext from "./contexts/CurrentDayContext";
+import MonthView from "./components/MonthView";
 
 function Front() {
     const { user, auth, isLoading: isAuthLoading } = useContext(AuthContext);
@@ -128,6 +129,7 @@ function Front() {
             </div>
             <div className="data">
                 <div className="month"></div>
+                <MonthView />
                 <PerformanceRadarChart />
             </div>
         </div>
