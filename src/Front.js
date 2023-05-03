@@ -1,6 +1,5 @@
 import "./Front.css";
-import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import PerformanceRadarChart from "./PerformanceRadarChart";
 import { dayToDateTimeObj, toDateString } from "./utils/day-to-date-time-obj";
 import { tsToDays } from "./utils/current-day";
@@ -11,13 +10,13 @@ import Skull from "./icons/Skull";
 import Card from "./Card";
 import DBContext from "./contexts/DBContext";
 import CurrentDayContext from "./contexts/CurrentDayContext";
+import usePaginatedCardList from "./hooks/usePaginatedCardList";
 
 function Front() {
     const { user, auth, isLoading: isAuthLoading } = useContext(AuthContext);
     const db = useContext(DBContext);
     const currentDay = useContext(CurrentDayContext);
 
-    const [entries, setEntries] = useState(null);
     // Header stuff
     const totalDays = useMemo(() => {
         // 72 Georgian average lifetime
@@ -30,6 +29,8 @@ function Front() {
         return totalDays - daysPassed;
     }, [daysPassed, totalDays]);
 
+    const { entries, loadMore } = usePaginatedCardList(isAuthLoading || !user);
+
     // Header stuff end
     const list = useMemo(() => {
         const mapForUI = ({ day, content }) => ({
@@ -39,7 +40,8 @@ function Front() {
         });
 
         const res = [];
-        for (let i = currentDay; i >= currentDay - 10; i--) {
+        const earliestLoadedDayNum = entries[entries.length - 1]?.day;
+        for (let i = currentDay; i >= earliestLoadedDayNum && entries.length; i--) {
             const dayEntry =
                 entries && entries.find((entry) => entry.day === i);
             const day = mapForUI(dayEntry ? dayEntry : { day: i });
@@ -48,23 +50,6 @@ function Front() {
 
         return res;
     }, [entries, currentDay]);
-
-    useEffect(() => {
-        if (db && !isAuthLoading && user) {
-            const q = query(
-                collection(db, "days"),
-                orderBy("day", "desc"),
-                limit(10)
-            );
-            getDocs(q).then((snapshot) => {
-                const entries = [];
-                snapshot.forEach((doc) => {
-                    entries.push(doc.data());
-                });
-                setEntries(entries);
-            });
-        }
-    }, [db, isAuthLoading, user]);
 
     useEffect(() => {
         if (!isAuthLoading && !user) {
@@ -126,6 +111,7 @@ function Front() {
                     <Card key={entry.day} entry={entry} db={db} />
                 ))}
             </div>
+            <button onClick={() => loadMore()}>Load More...</button>
             <div className="data">
                 <div className="month"></div>
                 <PerformanceRadarChart />

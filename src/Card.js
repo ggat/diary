@@ -59,6 +59,10 @@ export default function Card({ entry }) {
         [debouncedSetDoc]
     );
 
+    if(!entry.content && entry.day !== currentDay) {
+        return <div className="pass">{"- " + entry.day + " - " + entry.dateString}</div>
+    }
+
     return (
         <div className="card" key={entry.day}>
             {
