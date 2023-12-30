@@ -2,8 +2,12 @@
     border-radius: 6px;
     background: #e8e8e8;
     box-sizing: border-box;
-    margin-bottom: 60px;
+    margin-top: 60px;
     padding: 20px 40px;
+}
+
+.pass + .card {
+    margin-top: 0;
 }
 
 .content {
@@ -29,6 +33,7 @@
 }
 
 .pass {
-    margin-top: 12px;
-    margin-bottom: 12px;
+    padding-left: 8px;
+    /* margin-top: 12px;
+    margin-bottom: 12px; */
 }

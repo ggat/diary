@@ -59,8 +59,10 @@ export default function Card({ entry }) {
         [debouncedSetDoc]
     );
 
-    if(!entry.content && entry.day !== currentDay) {
-        return <div className="pass">{"- " + entry.day + " - " + entry.dateString}</div>
+    const disabled = useMemo(() => entry.day < currentDay - 3, [entry.day, currentDay])
+
+    if(disabled && !entry.content && entry.day !== currentDay) {
+        return <div className="pass">-</div>
     }
 
     return (
@@ -78,7 +80,7 @@ export default function Card({ entry }) {
             </div>
             <ReactTextareaAutosize
                 className="content"
-                disabled={entry.day < currentDay - 3}
+                disabled={disabled}
                 onChange={hangleChange}
                 defaultValue={entry.content}
             />
