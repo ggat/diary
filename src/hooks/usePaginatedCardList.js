@@ -2,6 +2,8 @@ import { useCallback, useContext, useRef, useState } from "react";
 import DBContext from "../contexts/DBContext";
 import { collection, getDocs, limit, orderBy, query, startAfter } from "firebase/firestore";
 
+const LOAD_LIMIT = 5;
+
 export default function usePaginatedCardList({ skip }) {
     const db = useContext(DBContext);
     const [entries, setEntries] = useState([]);
@@ -24,7 +26,7 @@ export default function usePaginatedCardList({ skip }) {
                 collection(db, "days"),
                 orderBy("day", "desc"),
                 startAfter(entries[entries.length - 1].day),
-                limit(10)
+                limit(LOAD_LIMIT)
             );
             loadMore.current = false;
         });

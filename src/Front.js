@@ -11,6 +11,7 @@ import Card from "./Card";
 import DBContext from "./contexts/DBContext";
 import CurrentDayContext from "./contexts/CurrentDayContext";
 import usePaginatedCardList from "./hooks/usePaginatedCardList";
+import useDetectScrollToBottom from "./hooks/useDetectScrollToBottom";
 
 function Front() {
     const { user, auth, isLoading: isAuthLoading } = useContext(AuthContext);
@@ -30,6 +31,8 @@ function Front() {
     }, [daysPassed, totalDays]);
 
     const { entries, loadMore } = usePaginatedCardList(isAuthLoading || !user);
+
+    useDetectScrollToBottom(loadMore);
 
     // Header stuff end
     const list = useMemo(() => {
