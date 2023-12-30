@@ -7,7 +7,7 @@ const LOAD_LIMIT = 5;
 export default function usePaginatedCardList({ skip }) {
     const db = useContext(DBContext);
     const [entries, setEntries] = useState([]);
-    const loading = useRef(false);
+    const [loading, setLoading] = useState(false);
     const nextQuery = useRef(query(
         collection(db, "days"),
         orderBy("day", "desc"),
@@ -15,26 +15,35 @@ export default function usePaginatedCardList({ skip }) {
     ));
 
     const loadMore = useCallback(() => {
-        loading.current = true;
+        if(!nextQuery.current) {
+            return;
+        }
+        setLoading(true);
         getDocs(nextQuery.current).then((snapshot) => {
             const entries = [];
             snapshot.forEach((doc) => {
                 entries.push(doc.data());
             });
             setEntries((prevLoadedEntries) => ([...prevLoadedEntries, ...entries]));
-            nextQuery.current = query(
-                collection(db, "days"),
-                orderBy("day", "desc"),
-                startAfter(entries[entries.length - 1].day),
-                limit(LOAD_LIMIT)
-            );
-            loadMore.current = false;
+            if(entries.length) {
+                nextQuery.current = query(
+                    collection(db, "days"),
+                    orderBy("day", "desc"),
+                    startAfter(entries[entries.length - 1].day),
+                    limit(LOAD_LIMIT)
+                );
+            } else {
+                nextQuery.current = null;
+            }
+            setLoading(false);
+        }).catch((e) => {
+            console.log('catch', e)
         });
     }, [nextQuery, db]);
 
-    if (!skip && !entries.length && !loading.current) {
+    if (!skip && !entries.length && !loading) {
         loadMore();
     }
 
-    return { entries, loadMore };
+    return { entries, loadMore, loading };
 }

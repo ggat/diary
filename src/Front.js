@@ -30,7 +30,7 @@ function Front() {
         return totalDays - daysPassed;
     }, [daysPassed, totalDays]);
 
-    const { entries, loadMore } = usePaginatedCardList(isAuthLoading || !user);
+    const { entries, loadMore, loading } = usePaginatedCardList(isAuthLoading || !user);
 
     useDetectScrollToBottom(loadMore);
 
@@ -86,6 +86,8 @@ function Front() {
         );
     }
 
+    console.log('loading', loading)
+
     return (
         <div className="container">
             <div className="header">
@@ -109,6 +111,11 @@ function Front() {
                     ></div>
                 </div>
             </div>
+            {loading && <div style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+            }}>Loading...</div>}
             <div className="list">
                 {list.map((entry) => (
                     <Card key={entry.day} entry={entry} db={db} />
