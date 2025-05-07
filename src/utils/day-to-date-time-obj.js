@@ -18,9 +18,9 @@ export function toDateString(d) {
         "Nov",
         "Dec",
     ];
-    let month = "" + monthNames[d.getMonth()];
-    let day = "" + d.getDate();
-    let year = d.getFullYear();
+    let month = "" + monthNames[d.getUTCMonth()];
+    let day = "" + d.getUTCDate();
+    let year = d.getUTCFullYear();
 
     if (month.length < 2) month = "0" + month;
     if (day.length < 2) day = "0" + day;
