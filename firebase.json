@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "diary-4c95d",
     "public": "build",
     "ignore": [
       "firebase.json",

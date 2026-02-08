@@ -1,12 +1,25 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: "Bree Serif", serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: #bebebe;
+    background: #f5f3ef;
+    color: #1a1a1a;
+    line-height: 1.6;
 }
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;
+}
+
+::selection {
+    background: #10b990;
+    color: white;
 }

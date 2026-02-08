@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { currentDay } from "./current-day";
 
 export function useCurrentDay() {
-    const [day, setDay] = useState(null);
+    const [day, setDay] = useState(() => currentDay());
 
     useEffect(() => {
         const interval = setInterval(() => {
