@@ -148,6 +148,24 @@
     color: white;
 }
 
+/* ── Sign-in animation ── */
+
+.sign-in-anim {
+    width: 180px;
+    height: 180px;
+    margin-bottom: 8px;
+}
+
+.book-breathe {
+    animation: book-breathe-anim 4s ease-in-out infinite;
+    transform-origin: center center;
+}
+
+@keyframes book-breathe-anim {
+    0%, 100% { transform: scale(1); opacity: 0.85; }
+    50% { transform: scale(1.06); opacity: 1; }
+}
+
 /* ── Sign-in page (cyberpunk) ── */
 
 .sign-in-page {
